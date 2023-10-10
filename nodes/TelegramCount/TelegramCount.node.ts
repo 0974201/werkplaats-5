@@ -118,6 +118,5 @@ export class TelegramCount implements INodeType {
 		}
 		// Map data to n8n data structure
 		return [this.helpers.returnJsonArray(returnData)];
-
 	}
 }
