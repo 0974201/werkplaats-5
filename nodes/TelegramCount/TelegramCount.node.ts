@@ -1,5 +1,3 @@
-// import type { Readable } from 'stream';
-
 import type {
     IExecuteFunctions,
     IDataObject,
@@ -8,15 +6,8 @@ import type {
     INodeTypeDescription,
 } from "n8n-workflow";
 
-// import { BINARY_ENCODING } from "n8n-core";
 import {NodeOperationError} from "n8n-workflow";
-// import {apiRequest} from "./GenericFunctions";
-
-import {
-//     addAdditionalFields,
-    apiRequest,
-//     getPropertyName,
-} from "./GenericFunctions";
+import {apiRequest} from "./GenericFunctions";
 
 
 export class TelegramCount implements INodeType {
@@ -25,7 +16,7 @@ export class TelegramCount implements INodeType {
         name: 'TelegramCount',
         icon: 'file:telegramlogo.svg',
         group: ['output'],
-        version: [1, 1.1],
+        version: 1,
         subtitle: '={{$parameter["operation"] + ": " + $parameter["resource"]}}',
         description: 'Get the number of members in a group chat',
         defaults: {
@@ -35,7 +26,7 @@ export class TelegramCount implements INodeType {
         outputs: ['main'],
         credentials: [
             {
-                name: 'telegramApi',
+                name: 'TelegramApi',
                 required: true,
             },
         ],
@@ -91,138 +82,6 @@ export class TelegramCount implements INodeType {
                 },
                 required: true,
                 description: 'Unique identifier for the target chat or username of the target channel (in the format @channelusername)',
-            },
-            {
-                displayName: 'Reply Keyboard',
-                name: 'replyKeyboard',
-                placeholder: 'Add Reply Keyboard Row',
-                description: 'Adds an inline keyboard that appears right next to the message it belongs to',
-                type: 'fixedCollection',
-                typeOptions: {
-                    // Hopelijk betekent dit dat je maar 1 rij kan toevoegen, anders veranderen naar true
-                    multipleValues: false,
-                },
-                displayOptions: {
-                    show: {
-                        replyMarkup: ['replyKeyboard'],
-                    },
-                },
-                default: {},
-                options: [
-                    {
-                        displayName: 'Rows',
-                        name: 'rows',
-                        values: [
-                            {
-                                displayName: 'Row',
-                                name: 'row',
-                                type: 'fixedCollection',
-                                description: 'The value to set',
-                                placeholder: 'Add Button',
-                                typeOptions: {
-                                    // Hopelijk betekent dit dat je maar 1 rij kan toevoegen, anders veranderen naar true
-                                    multipleValues: false,
-                                },
-                                default: {},
-                                options: [
-                                    {
-                                        displayName: 'Buttons',
-                                        name: 'buttons',
-                                        values: [
-                                            {
-                                                displayName: 'Text',
-                                                name: 'text',
-                                                type: 'string',
-                                                default: 'Count group members',
-                                                description:
-                                                    'Text of the button. If none of the optional fields are used, this text will be sent as a message when the button is pressed.',
-                                            },
-                                            {
-                                                displayName: 'Additional Fields',
-                                                name: 'additionalFields',
-                                                type: 'collection',
-                                                placeholder: 'Add Field',
-                                                default: {},
-                                                options: [
-                                                    {
-                                                        displayName: 'Count Group Members',
-                                                        name: 'count_group_members',
-                                                        type: 'boolean',
-                                                        default: true,
-                                                        description: 'Whether the number of people in the group chat will be counted and shared in the chat'
-                                                    },
-                                                ],
-                                            },
-                                        ],
-                                    },
-                                ],
-                            },
-                        ],
-                    },
-                ],
-            },
-            {
-                displayName: 'Reply Keyboard Options',
-                name: 'replyKeyboardOptions',
-                type: 'collection',
-                placeholder: 'Add Option',
-                displayOptions: {
-                    show: {
-                        replyMarkup: ['replyKeyboard']
-                    },
-                },
-                default: {},
-                options: [
-                    {
-                        displayName: 'Resize Keyboard',
-                        name: 'resize_keyboard',
-                        type: 'boolean',
-                        default: false,
-                        description: 'Whether to request clients to resize the keyboard vertically for optimal fit',
-                    },
-                    {
-                        displayName: 'One Time Keyboard',
-                        name: 'one_time_keyboard',
-                        type: 'boolean',
-                        default: false,
-                        description: 'Whether to request clients to hide the keyboard as soon as it has been used',
-                    },
-                    {
-                        displayName: 'Selective',
-                        name: 'selective',
-                        type: 'boolean',
-                        default: false,
-                        description: 'Whether to show the keyboard to specific users only',
-                    },
-                ],
-            },
-            {
-                displayName: 'Reply Keyboard Remove',
-                name: 'replyKeyboardRemove',
-                type: 'collection',
-                placeholder: 'Add Field',
-                displayOptions: {
-                    show: {
-                        replyMarkup: ['replyKeyboardRemove'],
-                    },
-                },
-                default: {},
-                options: [
-                    {
-                        displayName: 'Remove Keyboard',
-                        name: 'remove_keyboard',
-                        type: 'boolean',
-                        default: false,
-                        description: 'Whether to request clients to remove the custom keyboard',
-                    },
-                    {
-                        displayName: 'Selective',
-                        name: 'selective',
-                        type: 'boolean',
-                        default: false,
-                        description: 'Whether to force reply from specific users only',
-                    },
-                ],
             },
         ],
     };

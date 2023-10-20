@@ -3,7 +3,7 @@
 import type {IAuthenticateGeneric, ICredentialTestRequest, ICredentialType, INodeProperties} from 'n8n-workflow';
 
 export class TelegramApi implements ICredentialType {
-    name = 'telegramApi';
+    name = 'TelegramApi';
 
     displayName = 'Telegram API';
 
@@ -28,7 +28,7 @@ export class TelegramApi implements ICredentialType {
                 Authorization: '={{$credentials.accessToken}}'
             }
         },
-    };
+    } as IAuthenticateGeneric;
 
     test: ICredentialTestRequest = {
         request: {

@@ -189,7 +189,7 @@ export async function apiRequest(
 	query?: IDataObject,
 	option: IDataObject = {},
 ): Promise<any> {
-	const credentials = await this.getCredentials('telegramApi');
+	const credentials = await this.getCredentials('TelegramApi');
 
 	query = query || {};
 
