@@ -1,6 +1,6 @@
 # n8n-nodes-telegramcount
 
-!\[\](./assets/exampleworkflow.png)
+!\[\](assets/exampleworkflow.png)
 
 This is an n8n community node. It lets you use the [Telegram API](https://core.telegram.org/api) to communicate with Telegram in your n8n workflows.
 
@@ -33,9 +33,9 @@ This node requires a [Telegram Access Token](https://docs.n8n.io/integrations/bu
 
 Follow the pictures below to create a new credential.
 
-!\[\](./assets/telegramcredentials0.png)
+!\[\](assets/telegramcredentials0.png)
 
-!\[\](./assets/telegramcredentials.png)
+!\[\](assets/telegramcredentials.png)
 
 ## Compatibility
 
@@ -48,10 +48,10 @@ n8n@1.11.1
 2.  Select the Telegram credentials you have created earlier.
     
 3.  Enter the [Chat ID](https://docs.n8n.io/integrations/builtin/app-nodes/n8n-nodes-base.telegram/#get-the-chat-id). I recommend using @RawDataBot or @raw\_data\_bot.  
-    !\[\](./assets/configuration.png)
+    !\[\](assets/configuration.png)
     
 4.  Press the `Execute node` button to test the node and to output data. The integer in the result column is the number of members in the group chat your inserted Chat ID corresponds with.  
-    !\[\](./assets/outputdemo.png)
+    !\[\](assets/outputdemo.png)
     
 ## Resources
 
