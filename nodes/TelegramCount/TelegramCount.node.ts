@@ -7,7 +7,7 @@ import type {
 } from "n8n-workflow";
 
 import {NodeOperationError} from "n8n-workflow";
-import {apiRequest} from "./GenericFunctions";
+import {apiRequest} from "./ApiCall";
 
 
 export class TelegramCount implements INodeType {
@@ -64,6 +64,12 @@ export class TelegramCount implements INodeType {
                         action: 'Count members in chat',
                         description: 'Counts the number of members in a group chat',
                     },
+					{
+                        name: 'Roll Dice',
+                        value: 'dice',
+                        action: 'Roll a dice',
+                        description: 'Rolls a dice with a random value',
+                    },
                 ],
                 default: 'countMembers',
             },
@@ -76,6 +82,7 @@ export class TelegramCount implements INodeType {
                     show: {
                         operation: [
                             'countMembers',
+							'dice'
                         ],
                         resource: ['chat'],
                     },
@@ -101,10 +108,6 @@ export class TelegramCount implements INodeType {
 
         const operation = this.getNodeParameter('operation', 0);
         const resource = this.getNodeParameter('resource', 0);
-        // const binaryData = this.getNodeParameter('binaryData', 0, false);
-
-        // const nodeVersion = this.getNode().typeVersion;
-        // const instanceId = await this.getInstanceId();
 
         // For each item, make an API call (to count group members)
         for (let i = 0; i < items.length; i++) {
@@ -125,16 +128,21 @@ export class TelegramCount implements INodeType {
                         (endpoint as string) = 'getChatMemberCount';
                         // Get chat ID input
                         body.chat_id = this.getNodeParameter('chatId', i) as string;
-                    }
+                    } else if (operation === 'dice'){
+						(endpoint as string) = 'sendDice'
+						body.chat_id = this.getNodeParameter('chatId', i) as string;
+					}
+
                 } else {
                     throw new NodeOperationError(this.getNode(), `The resource "${resource}" is unknown.`, {
                         itemIndex: i,
                     });
                 }
-								const responseData = await apiRequest.call(this, requestMethod, endpoint, body);
-								returnData.push({
-										json: responseData
-								});
+				const responseData = await apiRequest.call(this, requestMethod, endpoint, body);
+				returnData.push({
+					json: responseData
+				});
+
             } catch (error) {
                 if (this.continueOnFail()) {
                     returnData.push({json: {}, error: error.message});
