@@ -1,6 +1,6 @@
 # n8n-nodes-telegramcount
 
-!\[\](assets/exampleworkflow.png)
+[](assets/exampleworkflow.png)
 
 This is an n8n community node. It lets you use the [Telegram API](https://core.telegram.org/api) to communicate with Telegram in your n8n workflows.
 
@@ -33,9 +33,9 @@ This node requires a [Telegram Access Token](https://docs.n8n.io/integrations/bu
 
 Follow the pictures below to create a new credential.
 
-!\[\](assets/telegramcredentials0.png)
+[](assets/telegramcredentials0.png)
 
-!\[\](assets/telegramcredentials.png)
+[](assets/telegramcredentials.png)
 
 ## Compatibility
 
