@@ -1,18 +1,19 @@
-# n8n-nodes-_node-name_
+# n8n-nodes-telegramcount
 
-This is an n8n community node. It lets you use _app/service name_ in your n8n workflows.
+!\[\](./assets/exampleworkflow.png)
 
-_App/service name_ is _one or two sentences describing the service this node integrates with_.
+This is an n8n community node. It lets you use the [Telegram API](https://core.telegram.org/api) to communicate with Telegram in your n8n workflows.
+
+Telegram Counter counts how many members are present in a group chat and can be paired with the Telegram node to forward the result to your chat.
 
 [n8n](https://n8n.io/) is a [fair-code licensed](https://docs.n8n.io/reference/license/) workflow automation platform.
 
 [Installation](#installation)  
 [Operations](#operations)  
-[Credentials](#credentials)  <!-- delete if no auth needed -->  
+[Credentials](#credentials)  
 [Compatibility](#compatibility)  
-[Usage](#usage)  <!-- delete if not using this section -->  
-[Resources](#resources)  
-[Version history](#version-history)  <!-- delete if not using this section -->  
+[Usage](#usage)  
+[Resources](#resources)
 
 ## Installation
 
@@ -20,29 +21,40 @@ Follow the [installation guide](https://docs.n8n.io/integrations/community-nodes
 
 ## Operations
 
-_List the operations supported by your node._
+*   [Get chat member count](https://core.telegram.org/bots/api#getchatmembercount/)
+
+| Operation | Method | Credentials required | Description |
+|-----------|:-----------:|-----------|-----------|
+| Count Group Members | `POST` | `true` | Get the number of members in a group chat |
 
 ## Credentials
 
-_If users need to authenticate with the app/service, provide details here. You should include prerequisites (such as signing up with the service), available authentication methods, and how to set them up._
+This node requires a [Telegram Access Token](https://docs.n8n.io/integrations/builtin/credentials/telegram/) in order to authenticate the Telegram Counter node.
+
+Follow the pictures below to create a new credential.
+
+!\[\](./assets/telegramcredentials0.png)
+
+!\[\](./assets/telegramcredentials.png)
 
 ## Compatibility
 
-_State the minimum n8n version, as well as which versions you test against. You can also include any known version incompatibility issues._
+n8n@1.11.1
 
 ## Usage
 
-_This is an optional section. Use it to help users with any difficult or confusing aspects of the node._
-
-_By the time users are looking for community nodes, they probably already know n8n basics. But if you expect new users, you can link to the [Try it out](https://docs.n8n.io/try-it-out/) documentation to help them get started._
-
+1.  Add the Telegram Counter node to your workflow without selecting a trigger.
+    
+2.  Select the Telegram credentials you have created earlier.
+    
+3.  Enter the [Chat ID](https://docs.n8n.io/integrations/builtin/app-nodes/n8n-nodes-base.telegram/#get-the-chat-id). I recommend using @RawDataBot or @raw\_data\_bot.  
+    !\[\](./assets/configuration.png)
+    
+4.  Press the `Execute node` button to test the node and to output data. The integer in the result column is the number of members in the group chat your inserted Chat ID corresponds with.  
+    !\[\](./assets/outputdemo.png)
+    
 ## Resources
 
-* [n8n community nodes documentation](https://docs.n8n.io/integrations/community-nodes/)
-* _Link to app/service documentation._
-
-## Version history
-
-_This is another optional section. If your node has multiple versions, include a short description of available versions and what changed, as well as any compatibility impact._
-
-
+*   [n8n community nodes documentation](https://docs.n8n.io/integrations/community-nodes/)
+*   [Telegram homepage](https://telegram.org/)
+*   [Telegram API docs](https://core.telegram.org/api/)
