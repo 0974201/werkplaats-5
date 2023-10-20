@@ -1,17 +1,22 @@
 import { IExecuteFunctions } from 'n8n-core';
 
-import { IDataObject, INodeExecutionData, INodeType, INodeTypeDescription,} from 'n8n-workflow';
+import { 
+	IDataObject, 
+	INodeExecutionData, 
+	INodeType, 
+	INodeTypeDescription, 
+	NodeOperationError} from 'n8n-workflow';
 
-import {OptionsWithUri} from 'request';
+import { apiRequest } from './ApiCall';
 
 export class TelegramCount implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: 'TelegramCount',
 		name: 'TelegramCount',
 		icon: 'file:telegram.svg',
-		group: ['transform'],
+		group: ['output'],
 		version: 1,
-		description: 'Consume SendGrid API',
+		description: 'TelegramCount',
 		defaults: {
 			name: 'TelegramCount',
 		},
@@ -29,94 +34,103 @@ export class TelegramCount implements INodeType {
 				displayName: 'Resource',
 				name: 'resource',
 				type: 'options',
+				noDataExpression: true,
 				options: [
 					{
-						name: 'Contact',
-						value: 'contact',
+						name: 'Chat',
+						value: 'chat',
 					},
 				],
-				default: 'contact',
-				noDataExpression: true,
-				required: true,
-				description: 'Create a new contact',
+				default: 'chat',
 			},
 			{
-				displayName: 'Additional Fields',
-				name: 'additionalFields',
-				type: 'collection',
-				placeholder: 'Add Field',
-				default: {},
+				displayName: 'Operation',
+				name: 'operation',
+				type: 'options',
+				noDataExpression: true,
 				displayOptions: {
 					show: {
 						resource: [
-							'contact',
-						],
-						operation: [
-							'create',
+							'chat',
 						],
 					},
 				},
 				options: [
 					{
-						displayName: 'First Name',
-						name: 'firstName',
-						type: 'string',
-						default: '',
-					},
-					{
-						displayName: 'Last Name',
-						name: 'lastName',
-						type: 'string',
-						default: '',
+						name: 'Count Group Members',
+						value: 'countMembers',
+						action: 'Count members in chat',
+						description: 'Count members',
 					},
 				],
+				default: 'countMembers',
 			},
-			
+			{
+				displayName: 'Chat ID',
+				name: 'chatId',
+				type: 'string',
+				default: '',
+				displayOptions: {
+					show: {
+						operation: [
+							'countMembers'
+						],
+						resource: ['chat'],
+					},
+				},
+				required: true,
+				description: 'aaaaa'
+			},
 		],
 	};
+
 	// The execute method will go here
 	async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
 		// Handle data coming from previous nodes
 		const items = this.getInputData();
-		let responseData;
 		const returnData = [];
-		const resource = this.getNodeParameter('resource', 0) as string;
-		const operation = this.getNodeParameter('operation', 0) as string;
+		const operation = this.getNodeParameter('operation', 0);
+		const resource = this.getNodeParameter('resource', 0);
+		
+		let responseData;
+		let body: IDataObject;
+		//let qs: IDataObject;
+
+		let requestMethod: string;
+		let endpoint: string;
 
 		// For each item, make an API call to create a contact
 		for (let i = 0; i < items.length; i++) {
-			if (resource === 'contact') {
-				if (operation === 'create') {
-					// Get email input
-					const email = this.getNodeParameter('email', i) as string;
-					// Get additional fields input
-					const additionalFields = this.getNodeParameter('additionalFields', i) as IDataObject;
-					const data: IDataObject = {
-						email,
-					};
+			try{
+				//Reset all values
+				requestMethod = 'POST'
+				endpoint = '';
+				body =  {};
+				//qs = {};
+				
+				if (resource === 'chat') {
+					if (operation === 'countMembers') {
+						(endpoint as string) = 'getChatMemberCount';
+						body.chat_id = this.getNodeParameter('chatid', i) as string
+					}
+				} else {
+					throw new NodeOperationError(this.getNode(), 'The resource "${resource}" is unknown.', {
+						itemIndex: i,
+					});
+				}
 
-					Object.assign(data, additionalFields);
+				responseData = await apiRequest.call(this, requestMethod, endpoint, body);
+				returnData.push({
+					json: responseData
+				});
 
-					// Make HTTP request according to https://sendgrid.com/docs/api-reference/
-					const options: OptionsWithUri = {
-						headers: {
-							'Accept': 'application/json',
-						},
-						method: 'PUT',
-						body: {
-							contacts: [
-								data,
-							],
-						},
-						uri: `https://api.sendgrid.com/v3/marketing/contacts`,
-						json: true,
-					};
-					responseData = await this.helpers.requestWithAuthentication.call(this, 'friendGridApi', options);
-					returnData.push(responseData);
+				} catch(error) {
+					if(this.continueOnFail()){
+						returnData.push({json: {}, error: error.message});
+					}
 				}
 			}
-		}
-		// Map data to n8n data structure
-		return [this.helpers.returnJsonArray(returnData)];
+			// Map data to n8n data structure
+			return Promise.resolve([returnData]);
 	}
 }
