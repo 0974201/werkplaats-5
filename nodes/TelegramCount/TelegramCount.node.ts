@@ -23,9 +23,9 @@ export class TelegramCount implements INodeType {
     description: INodeTypeDescription = {
         displayName: 'Telegram Counter',
         name: 'TelegramCount',
-        icon: 'file:telegramlogo.png',
-        group: ['transform'],
-        version: 1,
+        icon: 'file:telegramlogo.svg',
+        group: ['output'],
+        version: [1, 1.1],
         subtitle: '={{$parameter["operation"] + ": " + $parameter["resource"]}}',
         description: 'Get the number of members in a group chat',
         defaults: {
@@ -68,7 +68,7 @@ export class TelegramCount implements INodeType {
                 },
                 options: [
                     {
-                        name: 'Count group members',
+                        name: 'Count Group Members',
                         value: 'countMembers',
                         action: 'Count members in chat',
                         description: 'Counts the number of members in a group chat',
@@ -149,7 +149,7 @@ export class TelegramCount implements INodeType {
                                                         name: 'count_group_members',
                                                         type: 'boolean',
                                                         default: true,
-                                                        description: 'Whether the number of people in the group chat will be counted and shared in the chat.'
+                                                        description: 'Whether the number of people in the group chat will be counted and shared in the chat'
                                                     },
                                                 ],
                                             },

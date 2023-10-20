@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Rac-Software-Development/werkplaats-5-cloudshift-n8n-kolibrie.git"
+    "url": "git+https://github.com/Rac-Software-Development/werkplaats-5-cloudshift-n8n-kolibrie.git"
   },
   "main": "index.js",
   "scripts": {
