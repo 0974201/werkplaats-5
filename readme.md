@@ -1,3 +1,0 @@
-# Team koliBrie
-
-<insert text>
