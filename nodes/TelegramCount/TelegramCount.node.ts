@@ -4,10 +4,14 @@ import type {
     INodeExecutionData,
     INodeType,
     INodeTypeDescription,
+	ILogger,
 } from "n8n-workflow";
 
+//import {writeFileSync} from 'fs';
 import {NodeOperationError} from "n8n-workflow";
+import {LoggerProxy} from "n8n-workflow";
 import {apiRequest} from "./ApiCall";
+require('console');
 
 
 export class TelegramCount implements INodeType {
@@ -67,7 +71,7 @@ export class TelegramCount implements INodeType {
 					{
                         name: 'Roll Dice',
                         value: 'dice',
-                        action: 'Roll a dice',
+                        action: 'Rolls a dice',
                         description: 'Rolls a dice with a random value',
                     },
                 ],
@@ -94,7 +98,8 @@ export class TelegramCount implements INodeType {
     };
 
     async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
-        // Handle data coming from previous nodes
+    
+		// Handle data coming from previous nodes
         const items = this.getInputData();
         const returnData: INodeExecutionData[] = [];
 
@@ -108,6 +113,11 @@ export class TelegramCount implements INodeType {
 
         const operation = this.getNodeParameter('operation', 0);
         const resource = this.getNodeParameter('resource', 0);
+
+		let log: ILogger;
+		log = (console);
+		LoggerProxy.init(log);
+		LoggerProxy.info("testing");
 
         // For each item, make an API call (to count group members)
         for (let i = 0; i < items.length; i++) {
@@ -127,6 +137,7 @@ export class TelegramCount implements INodeType {
                         // Endpoint based on: https://core.telegram.org/bots/api#getchatmembercount
                         (endpoint as string) = 'getChatMemberCount';
                         // Get chat ID input
+						LoggerProxy.info("Getting the amount of members in the chat.");
                         body.chat_id = this.getNodeParameter('chatId', i) as string;
                     } else if (operation === 'dice'){
 						(endpoint as string) = 'sendDice'
@@ -145,6 +156,7 @@ export class TelegramCount implements INodeType {
 
             } catch (error) {
                 if (this.continueOnFail()) {
+					LoggerProxy.error("Something went wrong: ", error)
                     returnData.push({json: {}, error: error.message});
                 }
             }
