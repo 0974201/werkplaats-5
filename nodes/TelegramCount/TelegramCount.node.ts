@@ -1,3 +1,5 @@
+// Code is based on https://github.com/n8n-io/n8n/blob/master/packages/nodes-base/nodes/Telegram/Telegram.node.ts
+
 import type {
     IExecuteFunctions,
     IDataObject,
@@ -6,8 +8,9 @@ import type {
     INodeTypeDescription,
 } from "n8n-workflow";
 
-import {NodeOperationError} from "n8n-workflow";
-import {apiRequest} from "./GenericFunctions";
+import { NodeOperationError } from "n8n-workflow";
+
+import { apiRequest } from "./GenericFunctions";
 
 
 export class TelegramCount implements INodeType {
@@ -87,33 +90,28 @@ export class TelegramCount implements INodeType {
     };
 
     async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
-        // Handle data coming from previous nodes
+        // Handles data coming from previous nodes
         const items = this.getInputData();
         const returnData: INodeExecutionData[] = [];
 
         // For Post
         let body: IDataObject;
-        // For Query string
-        // let qs: IDataObject;
 
+				// Defines a string type for the API request method and the endpoint
         let requestMethod: string;
         let endpoint: string;
 
+				// Gets the operation and resource the user selects
         const operation = this.getNodeParameter('operation', 0);
         const resource = this.getNodeParameter('resource', 0);
-        // const binaryData = this.getNodeParameter('binaryData', 0, false);
-
-        // const nodeVersion = this.getNode().typeVersion;
-        // const instanceId = await this.getInstanceId();
 
         // For each item, make an API call (to count group members)
         for (let i = 0; i < items.length; i++) {
             try {
-                // Reset all values
+                // Resets all values
                 requestMethod = 'POST';
                 endpoint = '';
                 body = {};
-                // qs = {};
 
                 if (resource === 'chat') {
                     if (operation === 'countMembers') {
@@ -121,26 +119,66 @@ export class TelegramCount implements INodeType {
                         //  chat:countMembers
                         // --------------------
 
-                        // Endpoint based on: https://core.telegram.org/bots/api#getchatmembercount
+                        // Endpoint from: https://core.telegram.org/bots/api#getchatmembercount
                         (endpoint as string) = 'getChatMemberCount';
+
                         // Get chat ID input
                         body.chat_id = this.getNodeParameter('chatId', i) as string;
-                    }
-                } else {
-                    throw new NodeOperationError(this.getNode(), `The resource "${resource}" is unknown.`, {
-                        itemIndex: i,
-                    });
-                }
+												// Log does not get executed due to n8n's built in error handling
+												if (!body.chat_id) {
+													console.debug('Enter valid Chat ID');
+													throw new NodeOperationError(this.getNode(), `Chat ID is missing.`, {
+														itemIndex: i,
+													});
+												}
+
+												// Log gets returned in terminal when node is executed (both in workflow as node itself)
+												console.debug(`========================`)
+												console.debug(`[${Date()}] \n	API REQUEST:`)
+												console.debug(`	Request Method: "${requestMethod}"`)
+												console.debug(`	Endpoint: "${endpoint}"`)
+												console.debug(`	Resource: "${resource}"`)
+												console.debug(`	Operation: "${operation}"`)
+												console.debug(`	Chat ID: "${body.chat_id}"`)
+												console.debug(`========================`)
+
+                    } else if (operation !== 'countMembers') {
+												// Log gets returned in terminal when node is executed (both in workflow as node itself)
+												console.debug(`========================`)
+												console.debug(`[${Date()}]`)
+												console.debug(`Invalid operation "${operation}" selected.`)
+												console.debug(`========================`)
+												// Left in code for possible future development; does not interfere with the logging above
+												throw new NodeOperationError(this.getNode(), `The operation "${operation}" is unknown.`, {
+													itemIndex: i,});
+										}
+								} else {
+										// Log does not get executed due to n8n's built in error handling
+										if (resource !== 'chat') {
+											console.debug(`========================`)
+											console.debug(`[${Date()}]`)
+											console.debug(`Invalid resource "${resource}" selected.`)
+											console.debug(`========================`)
+											// Left in code for possible future development; does not interfere with the logging above
+											throw new NodeOperationError(this.getNode(), `The resource "${resource}" is unknown.`, {
+												itemIndex: i,
+											});
+										}
+								}
+								// Handles actual API request, returns data as JSON
 								const responseData = await apiRequest.call(this, requestMethod, endpoint, body);
 								returnData.push({
 										json: responseData
 								});
             } catch (error) {
+							// Log does not get executed due to n8n's built in error handling
                 if (this.continueOnFail()) {
+										console.debug({ json: {}, error: error.message });
                     returnData.push({json: {}, error: error.message});
                 }
             }
         }
+				// Actually returns the data from API request as JSON
         return Promise.resolve([returnData]);
     }
 }
