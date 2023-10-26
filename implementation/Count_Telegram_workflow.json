@@ -1,0 +1,91 @@
+{
+  "name": "Count Telegram",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "b1100f80-267a-4e50-aec8-c0695c2438c1",
+      "name": "When clicking \"Execute Workflow\"",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        580,
+        420
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "-4024524973"
+      },
+      "id": "762a7d3d-0f48-48b7-8e65-042cb41a478c",
+      "name": "Telegram Counter",
+      "type": "n8n-nodes-telegramcount.TelegramCount",
+      "typeVersion": 1,
+      "position": [
+        780,
+        420
+      ],
+      "credentials": {
+        "TelegramApi": {
+          "id": "eMg97VEPPAcaltKN",
+          "name": "myTelegramBot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "-4024524973",
+        "text": "={{ `There are` }} {{ $json.result }} {{ `members in this group` }} ",
+        "additionalFields": {}
+      },
+      "id": "2d6d1cde-f529-4781-b8c3-e431bd4798d5",
+      "name": "Telegram",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        1000,
+        420
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "w2i3bxLY2P1Y2M3b",
+          "name": "copyBaraBot"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking \"Execute Workflow\"": {
+      "main": [
+        [
+          {
+            "node": "Telegram Counter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Telegram Counter": {
+      "main": [
+        [
+          {
+            "node": "Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "41b66e6b-3d10-47c9-bf31-242af758b3e8",
+  "id": "cJafl4tFhn06ocZe",
+  "meta": {
+    "instanceId": "1070183c1bc263d1a3d9666758e9e1f63414374a0761765f42319de032eeb75e"
+  },
+  "tags": []
+}
