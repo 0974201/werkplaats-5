@@ -26,7 +26,9 @@ Follow the [installation guide](https://docs.n8n.io/integrations/community-nodes
 
 *   [Get chat member count](https://core.telegram.org/bots/api#getchatmembercount/)
 
-| Operation | Method | Credentials required | Description | |-----------|:-----------:|:---------------------:|-----------| | Count Group Members | `POST` | `true` | Get the number of members in a group chat |
+| Operation | Method | Credentials required | Description |
+|-----------|:-----------:|:---------------------:|-----------|
+| Count Group Members | `POST` | `true` | Get the number of members in a group chat |
 
 ## Credentials
 
