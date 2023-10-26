@@ -84,7 +84,7 @@ export class TelegramCount implements INodeType {
                     },
                 },
                 required: true,
-                description: 'Unique identifier for the target chat or username of the target channel (in the format @channelusername)',
+                description: 'Unique identifier for the target chat or username of the target channel (in the format @channel-username)',
             },
         ],
     };
@@ -124,7 +124,7 @@ export class TelegramCount implements INodeType {
 
                         // Get chat ID input
                         body.chat_id = this.getNodeParameter('chatId', i) as string;
-												// Log does not get executed due to n8n's built in error handling
+												// Log/Debug does not get executed due to n8n's built in error handling
 												if (!body.chat_id) {
 													console.debug('Enter valid Chat ID');
 													throw new NodeOperationError(this.getNode(), `Chat ID is missing.`, {
@@ -132,7 +132,7 @@ export class TelegramCount implements INodeType {
 													});
 												}
 
-												// Log gets returned in terminal when node is executed (both in workflow as node itself)
+												// Log/Debug gets returned in terminal when node is executed (both in workflow as node itself)
 												console.debug(`========================`)
 												console.debug(`[${Date()}] \n	API REQUEST:`)
 												console.debug(`	Request Method: "${requestMethod}"`)
@@ -143,7 +143,7 @@ export class TelegramCount implements INodeType {
 												console.debug(`========================`)
 
                     } else if (operation !== 'countMembers') {
-												// Log gets returned in terminal when node is executed (both in workflow as node itself)
+												// Log/Debug gets returned in terminal when node is executed (both in workflow as node itself)
 												console.debug(`========================`)
 												console.debug(`[${Date()}]`)
 												console.debug(`Invalid operation "${operation}" selected.`)
@@ -153,7 +153,7 @@ export class TelegramCount implements INodeType {
 													itemIndex: i,});
 										}
 								} else {
-										// Log does not get executed due to n8n's built in error handling
+										// Log/Debug does not get executed due to n8n's built in error handling
 										if (resource !== 'chat') {
 											console.debug(`========================`)
 											console.debug(`[${Date()}]`)
@@ -165,20 +165,19 @@ export class TelegramCount implements INodeType {
 											});
 										}
 								}
-								// Handles actual API request, returns data as JSON
+								// Handles API request, returns data as JSON
 								const responseData = await apiRequest.call(this, requestMethod, endpoint, body);
 								returnData.push({
 										json: responseData
 								});
             } catch (error) {
-							// Log does not get executed due to n8n's built in error handling
+							// Log/Debug does not get executed due to n8n's built in error handling
                 if (this.continueOnFail()) {
 										console.debug({ json: {}, error: error.message });
                     returnData.push({json: {}, error: error.message});
                 }
             }
         }
-				// Actually returns the data from API request as JSON
         return Promise.resolve([returnData]);
     }
 }
