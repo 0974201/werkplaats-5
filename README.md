@@ -15,7 +15,7 @@ Telegram Counter counts how many members are present in a group chat and can be 
 [Usage](#usage)  
 [Testing](#testing)  
 [Logging](#logging)  
-[Limitations](#limitations)  
+[Notes](#notes)  
 [Resources](#resources)
 
 ## Installation
@@ -26,8 +26,8 @@ Follow the [installation guide](https://docs.n8n.io/integrations/community-nodes
 
 *   [Get chat member count](https://core.telegram.org/bots/api#getchatmembercount/)
 
-| Operation | Method | Credentials required | Description |
-|-----------|:-----------:|:---------------------:|-----------|
+| Operation | Method | Credentials required | Description |  
+|-----------|:-----------:|:---------------------:|-----------|  
 | Count Group Members | `POST` | `true` | Get the number of members in a group chat |
 
 ## Credentials
@@ -63,29 +63,26 @@ n8n@1.11.1
 
 The following steps were taken in order to verify the functionality of the node:
 
-1.  The steps stated in the [node building tutorial](https://docs.n8n.io/integrations/creating-nodes/build/programmatic-style-node/#step-7-update-the-npm-package-details):  
-
-```
-# We built and linked our node.
-# In my node directory (werkplaats-5-cloudshift-n8n-kolibrie\nodes)
-npm run build
-npm link
+1.  The steps stated in the [node building tutorial](https://docs.n8n.io/integrations/creating-nodes/build/programmatic-style-node/#step-7-update-the-npm-package-details):
 ```    
-
+# We built and linked our node.
+# In my node directory (werkplaats-5-cloudshift-n8n-kolibrie\\nodes)
+npm run build npm link
 ```
+
+```    
 # We linked our node to n8n.
 # We created a 'nodes' directory because it was not present yet.
 # In the nodes directory within our n8n installation (.n8n/nodes)
 npm link n8n-nodes-telegramcount
-
 ```
-
-2. We then added the Telegram Count node to a new workflow. We set the [credentials](#credentials) and [Chat ID](#usage) as mentioned earlier. We executed the node to make an API request:
+    
+2.  We then added the Telegram Count node to a new workflow. We set the [credentials](#credentials) and [Chat ID](#usage) as mentioned earlier. We executed the node to make an API request:
+    
 
 ![Telegram Counter Node Configuration for Testing](assets/testing_node.png)
 
-3. Lastly we added a Telegram node to our workflow to send the result of the API request to the corresponding group chat in a string:
-![Workflow expansion with Telegram node](assets/testing_telegram_message.png)
+3.  Lastly we added a Telegram node to our workflow to send the result of the API request to the corresponding group chat in a string: ![Workflow expansion with Telegram node](assets/testing_telegram_message.png)
 
 ### Problems
 
@@ -102,7 +99,7 @@ Basic logging is implemented in the node code. Logs are printed in the same term
 *   Get parameters when all input is valid;
 *   Get log when `operation` does not equal `'countMembers'`;
 
-### Limitations {#logging_limitations}
+### Log Limitations
 
 It seems impossible to undermine the built-in error handling of n8n. We were limited to JavaScript's `console.debug`.
 
@@ -118,15 +115,33 @@ When errors are caught by n8n, `console.debug` does not get executed. This was t
 *   Only input 1 character in "Chat ID";
 *   Selecting basic `resource: 'Custom API Call'`.
 
-## Limitations
+## Notes
 
-* The node does not raise an error when the "Chat ID" is empty or invalid, as opposed to the original Telegram node;
-* The node cannot be activated with the built-in Telegram trigger (for example: send chat member count when a text message is sent);
-* Limited [logging](#logging_limitations);
+### Limitations
+
+*   The node does not raise an error when the "Chat ID" is empty or invalid, as opposed to the original Telegram node;
+*   The node cannot be activated with the built-in Telegram trigger (for example: send chat member count when a text message is sent);
+*   Limited [logging](#log-limitations).
+
+### Bugs
+
+There are no known bugs.
+
+### Unoptimized
+
+*   [Logging](#log-limitations)
+*   Enable admin to configure whether member count message in Telegram is visible only for them or entire group chat;
+*   Node does not raise an error when "Chat ID" is invalid;
+*   Check whether resource and/or operation user input is present in respective arrays.
+
+### Future implementations
+
+*   Reply Keyboard to enable user to request member count with one click/tap;
+*   More API endpoints.
 
 ## Resources
 
 *   [n8n community nodes documentation](https://docs.n8n.io/integrations/community-nodes/)
 *   [Telegram homepage](https://telegram.org/)
 *   [Telegram API docs](https://core.telegram.org/api/)
-* [Telegram node our node code is based on](https://github.com/n8n-io/n8n/tree/master/packages/nodes-base/nodes/Telegram)
+*   [Telegram node our node code is based on](https://github.com/n8n-io/n8n/tree/master/packages/nodes-base/nodes/Telegram)
