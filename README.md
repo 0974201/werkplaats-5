@@ -54,13 +54,13 @@ n8n@1.11.1
 
 2. Select the Telegram credentials you have created earlier.
 
-3. Enter the [Chat ID](https://docs.n8n.io/integrations/builtin/app-nodes/n8n-nodes-base.telegram/#get-the-chat-id). I
-	 recommend using @RawDataBot or @raw\_data\_bot.  
-	 ![Telegram Counter node configuration](assets/configuration.png)
+3. Enter the [Chat ID](https://docs.n8n.io/integrations/builtin/app-nodes/n8n-nodes-base.telegram/#get-the-chat-id). I recommend using @RawDataBot or @raw\_data\_bot.  
 
-4. Press the `Execute node` button to test the node and to output data. The integer in the result column is the number
-	 of members in the group chat your inserted Chat ID corresponds with.  
-	 ![Telegram Counter example output data](assets/outputdemo.png)
+![Telegram Counter node configuration](assets/configuration.png)
+
+4. Press the `Execute node` button to test the node and to output data. The integer in the result column is the number of members in the group chat your inserted Chat ID corresponds with.
+
+![Telegram Counter example output data](assets/outputdemo.png)
 
 ## Testing
 
@@ -68,43 +68,40 @@ n8n@1.11.1
 
 The following steps were taken in order to verify the functionality of the node:
 
-1. The steps stated in
-	 the [node building tutorial](https://docs.n8n.io/integrations/creating-nodes/build/programmatic-style-node/#step-7-update-the-npm-package-details):
+1. The steps stated in the [node building tutorial](https://docs.n8n.io/integrations/creating-nodes/build/programmatic-style-node/#step-7-update-the-npm-package-details):
 
 ```    
-		# We built and linked our node.
-		# In my node directory (werkplaats-5-cloudshift-n8n-kolibrie\nodes)
-		npm run build 
-		npm link
+# We built and linked our node.
+# In my node directory (werkplaats-5-cloudshift-n8n-kolibrie\nodes)
+npm run build 
+npm link
 ```
 
 ```        
-		# We linked our node to n8n.
-		# We created a 'nodes' directory because it was not present yet.
-		# In the nodes directory within our n8n installation (.n8n/nodes)
-		npm link n8n-nodes-telegramcount
+# We linked our node to n8n.
+# We created a 'nodes' directory because it was not present yet.
+# In the nodes directory within our n8n installation (.n8n/nodes)
+npm link n8n-nodes-telegramcount
 ```        
 
 ```
-    # We started n8n
-    n8n
-    # or
-    n8n start
+# We started n8n
+n8n
+# or
+n8n start
 ```
 
-2. We then added the Telegram Count node to a new workflow. We set the [credentials](#credentials) and [Chat ID](#usage)
-	 as mentioned earlier. We executed the node to make an API request:
+2. We then added the Telegram Count node to a new workflow. We set the [credentials](#credentials) and [Chat ID](#usage) as mentioned earlier. We executed the node to make an API request:
     
 ![Telegram Counter Node Configuration for Testing](assets/testing_node.png)
 
-3. Lastly we added a Telegram node to our workflow to send the result of the API request to the corresponding group chat
-	 in a string: ![Workflow expansion with Telegram node](assets/testing_telegram_message.png)
+3. Lastly we added a Telegram node to our workflow to send the result of the API request to the corresponding group chat in a string: 
+
+![Workflow expansion with Telegram node](assets/testing_telegram_message.png)
 
 ### Problems
 
-The major problem we initially encountered occurred during testing. We were unable to add our custom node to a workflow.
-We suspect this was caused by a clash between the API name of the custom node and the API name of the existing Telegram
-node. We solved this by changing the API name from `telegramApi` to `TelegramApi` at every occurrence in our custom node
+The major problem we initially encountered occurred during testing. We were unable to add our custom node to a workflow. We suspect this was caused by a clash between the API name of the custom node and the API name of the existing Telegram node. We solved this by changing the API name from `telegramApi` to `TelegramApi` at every occurrence in our custom node
 package.
 
 ### Testing Manual
@@ -113,8 +110,7 @@ Can be found [here](TESTINGMANUAL.md).
 
 ## Logging
 
-Basic logging is implemented in the node code. Logs are printed in the same terminal as your active n8n session.
-Implementing [n8n's built-in logging](https://docs.n8n.io/hosting/logging-monitoring/logging/#logging-in-n8n) seemed
+Basic logging is implemented in the node code. Logs are printed in the same terminal as your active n8n session. Implementing [n8n's built-in logging](https://docs.n8n.io/hosting/logging-monitoring/logging/#logging-in-n8n) seemed
 impossible. Consultation with a professional Software Developer confirmed these findings.
 
 ### Possibilities
@@ -144,8 +140,7 @@ hopes of activating code blocks with `console.debug`:
 ### Limitations
 
 * The node does not raise an error when the "Chat ID" is empty or invalid, as opposed to the original Telegram node;
-* The node cannot be activated with the built-in Telegram trigger (for example: send chat member count when a text
-	message is sent);
+* The node cannot be activated with the built-in Telegram trigger (for example: send chat member count when a text message is sent);
 * Limited [logging](#log-limitations).
 
 ### Bugs
