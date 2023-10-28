@@ -10,7 +10,7 @@ import type {
 
 import { NodeOperationError } from "n8n-workflow";
 
-import { apiRequest } from "./GenericFunctions";
+import { apiRequest } from "./ApiRequest";
 
 
 export class TelegramCount implements INodeType {
