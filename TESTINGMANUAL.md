@@ -58,8 +58,16 @@ Add the Telegram Count node to a new workflow. Set the [credentials](./README.md
     
 ![Telegram Counter Node Configuration for Testing](assets/testing_node.png)
 
+Your workflow will look like this:
+
+![Telegram Counter Workflow](assets/testbasicworkflow.png)
+
 ### 7. Optional: Expand Workflow
 
 Add a Telegram node to your workflow to send the result of the API request to the corresponding group chat as a string:
 
 ![Workflow expansion with Telegram node](assets/testing_telegram_message.png)
+
+Your workflow will look like this:
+
+![Previous workflow expanded with Telegram node](assets/exampleworkflow.png)
