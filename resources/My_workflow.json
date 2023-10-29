@@ -1,15 +1,15 @@
 {
-  "name": "My workflow",
+  "name": "My workflow 2",
   "nodes": [
     {
       "parameters": {},
-      "id": "22c70db1-e756-4a91-855c-f83311aaa8d5",
+      "id": "6a83d020-97ef-488a-9b18-5e696c0ebc7b",
       "name": "When clicking \"Execute Workflow\"",
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
       "position": [
-        640,
-        320
+        560,
+        660
       ]
     },
     {
@@ -18,13 +18,13 @@
         "text": "=There are {{ $json.result }} members in this chatroom.",
         "additionalFields": {}
       },
-      "id": "a0c937d0-7720-4504-9583-8e3bd6f2c141",
+      "id": "7ae08a96-6632-4332-a7f6-39c466401285",
       "name": "Telegram",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1,
       "position": [
-        1020,
-        320
+        940,
+        660
       ],
       "credentials": {
         "telegramApi": {
@@ -36,16 +36,16 @@
     {
       "parameters": {
         "chatId": "-1002037860106",
-        "text": "=New invite link: {{ $json.result }} ",
+        "text": "=Invite link: {{ $json.result.invite_link }}",
         "additionalFields": {}
       },
-      "id": "f64fb147-3aca-49a6-8ab4-9621035aa7e1",
+      "id": "11bac6ed-2b36-4131-b00e-e6b5f2f32863",
       "name": "Telegram1",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1,
       "position": [
-        1020,
-        680
+        940,
+        1020
       ],
       "credentials": {
         "telegramApi": {
@@ -60,13 +60,13 @@
         "text": "=New invite link: {{ $json.result }} ",
         "additionalFields": {}
       },
-      "id": "50f4379b-93df-4492-ae8f-1bafd5b572ff",
+      "id": "ba65ac47-2af7-4fc7-b056-9ecf54393d77",
       "name": "Telegram2",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1,
       "position": [
-        1020,
-        860
+        940,
+        1200
       ],
       "credentials": {
         "telegramApi": {
@@ -79,13 +79,13 @@
       "parameters": {
         "chatId": "-1002079843100"
       },
-      "id": "9ce2229e-026e-4610-bc68-997e62b6b2a7",
+      "id": "35bf9650-d277-40c2-ba18-4491e2bf922d",
       "name": "TelegramExpansion",
       "type": "n8n-nodes-telegramcount.TelegramExpansion",
       "typeVersion": 1,
       "position": [
-        840,
-        320
+        760,
+        660
       ],
       "credentials": {
         "TelegramApi": {
@@ -99,13 +99,13 @@
         "operation": "dice",
         "chatId": "-1002079843100"
       },
-      "id": "98196852-c1d0-46f2-a25c-b9b07b95c2f8",
+      "id": "2c0fda02-6fa4-4337-90d2-e00d7eb8792f",
       "name": "TelegramExpansion1",
       "type": "n8n-nodes-telegramcount.TelegramExpansion",
       "typeVersion": 1,
       "position": [
-        840,
-        500
+        760,
+        840
       ],
       "credentials": {
         "TelegramApi": {
@@ -119,13 +119,13 @@
         "operation": "createLink",
         "chatId": "-1002037860106"
       },
-      "id": "4f13d141-e0c3-4f99-8d70-267cb65c5629",
+      "id": "ba299258-5bb0-43e2-a067-ed583ebecdb5",
       "name": "TelegramExpansion2",
       "type": "n8n-nodes-telegramcount.TelegramExpansion",
       "typeVersion": 1,
       "position": [
-        840,
-        680
+        760,
+        1020
       ],
       "credentials": {
         "TelegramApi": {
@@ -139,13 +139,13 @@
         "operation": "exportLink",
         "chatId": "-1002037860106"
       },
-      "id": "f2678fab-183d-485b-9bcb-1b6fc7dc2e0a",
+      "id": "3b9e64ee-bc0f-47c9-89fd-f6ee381a6600",
       "name": "TelegramExpansion3",
       "type": "n8n-nodes-telegramcount.TelegramExpansion",
       "typeVersion": 1,
       "position": [
-        840,
-        860
+        760,
+        1200
       ],
       "credentials": {
         "TelegramApi": {
@@ -221,8 +221,8 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "0b7d4d9f-3f23-44fe-a77b-cfc673b2496e",
-  "id": "3GHHa10p4SdNbtRD",
+  "versionId": "3e66d95e-9163-47db-bf64-8f39759a1c21",
+  "id": "ugYocTi5XBVVY04y",
   "meta": {
     "instanceId": "8e443407cf6e59c2d47966cfbd86d64063ad9ca1fcf0e1b5cf4a767d35e3b2c4"
   },
