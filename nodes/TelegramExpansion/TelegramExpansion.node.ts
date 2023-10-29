@@ -152,7 +152,7 @@ export class TelegramExpansion implements INodeType {
 						//console.info(timestamp, "Executing ", operation); //uncomment this if tslog doesn't work.
 					}
 					else if(operation === 'createLink'){
-						(endpoint as string) = 'exportChatInviteLink';
+						(endpoint as string) = 'createChatInviteLink';
 						body.chat_id = this.getNodeParameter('chatId', i) as string;
 						log.info("Executing ", operation);
 						//console.info(timestamp, "Executing ", operation); //uncomment this if tslog doesn't work.
