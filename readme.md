@@ -196,4 +196,8 @@ There is a lot of repetition within the code, this could be optimised in the fut
 
 It is possible for the user to use `{{json.result}}` as ChatID. The node will still execute but not successfully. There wasn't enough time to figure out why this happens, so this needs to be fixed in another update.
 
-It's unknown if errors will also show up in the logs, as it was difficult to test this. n8n usually catches errors and gives feedback to the user.
+It's unknown if errors will also show up in the logs, as it was difficult to test this. n8n usually catches these errors and gives feedback to the user on the website.
+
+There is a JSON file present of my workflow, you can find this inside the resources folder. You can test this on the n8n website by importing the JSON file. Please change the ChatIDs before executing the workflow!
+
+![workflow](./resources/workflow.png)
