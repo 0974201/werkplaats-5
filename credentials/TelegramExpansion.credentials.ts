@@ -1,7 +1,7 @@
 import { IAuthenticateGeneric, ICredentialTestRequest, ICredentialType, INodeProperties } from 'n8n-workflow';
 
-export class TelegramCount implements ICredentialType {
-	name = 'telegramApi';
+export class TelegramExpansion implements ICredentialType { //adapted from orignal Telegram node
+	name = 'TelegramApi';
 	displayName = 'Telegram API';
 	properties: INodeProperties[] = [
 		{
@@ -19,7 +19,7 @@ export class TelegramCount implements ICredentialType {
 		type: 'generic',
 		properties: {
 			headers: {
-				Authorization: '=Bearer {{$credentials.apiKey}}',
+				Authorization: '={{$credentials.accessToken}}',
 			},
 		},
 	};

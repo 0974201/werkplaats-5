@@ -15,7 +15,7 @@ export class TelegramExpansion implements INodeType {
 		displayName: 'TelegramExpansion',
 		name: 'TelegramExpansion',
 		icon: 'file:telegram.svg',
-		group: ['output'], //changed to output
+		group: ['output'],
 		version: 1,
 		description: 'TelegramExpansion',
 		defaults: {
@@ -101,14 +101,15 @@ export class TelegramExpansion implements INodeType {
                     },
                 },
                 required: true,
-                description: 'Unique identifier for the target chat or username of the target channel (in the format @channelusername)',
+                description: 'Identifier for the target chat',
             },
 		],
 	};
 
 	// The execute method will go here
 	async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
-		// Handle data coming from previous nodes
+		// Handle data coming from previous nodes 
+		// everything here is also adapted from the original Telegram node
 		const items = this.getInputData();
 		const returnData = [];
 		const operation = this.getNodeParameter('operation', 0);
@@ -126,10 +127,10 @@ export class TelegramExpansion implements INodeType {
 		log.info("Starting process...");
 		//console.info(timestamp, "Starting process..."); //uncomment this if tslog doesn't work.
 
-		// For each item, make an API call to create a contact
+		// For each item, make an API call
 		for (let i = 0; i < items.length; i++) {
 			try{
-				//Reset all values, everything here is also adapted from the original Telegram node
+				//Reset all values
 				requestMethod = 'POST'
 				endpoint = '';
 				body =  {};

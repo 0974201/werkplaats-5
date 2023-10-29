@@ -1,4 +1,4 @@
-import type {
+import type { //adapted from orignal Telegram node, GenericFunctions.ts
 	IDataObject,
 	IExecuteFunctions,
 	IHookFunctions,
@@ -16,7 +16,7 @@ export async function apiRequest(this: IHookFunctions | IExecuteFunctions | ILoa
     query?: IDataObject,
     option: IDataObject = {}): Promise<any> {
         
-        const credentials = await this.getCredentials('telegramApi');
+        const credentials = await this.getCredentials('TelegramApi'); //capitalised it, to prevent potential conflict
 
         query = query || {};
 
