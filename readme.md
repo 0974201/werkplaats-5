@@ -93,6 +93,7 @@ You will need to add the token as a credential before using this node in your n8
 
 To add the token you will need to do the following:
 * Click on credentials in the left-hand menu. (:key:)
+  
   ![credentials in menu](./resources/credential_step1.png)
 * On the Credentials page, click on `Add Credential`.
 * In the pop-up, search for `TelegramExpansion API` and then on `Continue`.
@@ -170,7 +171,7 @@ After that, you can click on `Execute node` or go back to the canvas and click o
 
 ### Troubleshooting
 
-If your bot hasn't sent a message in your Telegram chat, check to make sure if you have added the right credentials or filled in the right Chat ID. Make sure to not add any spaces when copying the id. Also check if your bot has the right permissions and is an admin when it can't generate an invite link.
+If your bot hasn't sent a message in your Telegram chat, check to make sure if you have added the right credentials or filled in the right Chat ID. Make sure to not add any spaces when copying the id. Also, check if your bot has the right permissions and is an admin when it can't generate an invite link.
 
 
 ## Dev stuff
