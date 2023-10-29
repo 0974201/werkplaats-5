@@ -153,7 +153,7 @@ You will need to repeat this step for additional nodes. A way of preventing this
 
 ![adding chat id to node](./resources/usage_step5_5.png)
 
-When using the `Get Group Members`, `Create Invite Link` or `Export Invite Link` actions, you will need to add a Telegram message node to it, in order for the bot to send a message in chat. The steps are similar for when you were adding the actions from the `TelegramExpansion` node, but this time you will need the actions from the native `Telegram` node. `**You don't need to do this when using the _Roll dice_ action.**`
+When using the `Get Group Members`, `Create Invite Link` or `Export Invite Link` actions, you will need to add a Telegram message node to it, in order for the bot to send a message in chat. The steps are similar for when you were adding the actions from the `TelegramExpansion` node, but this time you will need the actions from the native `Telegram` node. **`You don't need to do this when using the Roll dice action!`**
 
 ![linking telegram msg node](./resources/usage_step6.png)
 
@@ -192,12 +192,16 @@ Additionally, you can test the output without having your bot sending a chat mes
 
 ## Notes
 
-There is a lot of repetition within the code, this could be optimised in the future.
+There is a lot of repetition within the code, which could be optimised in the future.
 
-It is possible for the user to use `{{json.result}}` as ChatID. The node will still execute but not successfully. There wasn't enough time to figure out why this happens, so this needs to be fixed in another update.
+It is possible for the user to use `{{json.result}}` as ChatID. The node will execute, but not successfully. There wasn't sufficient time to determine why this occurs, so it will need to be resolved in a future update.
 
-It's unknown if errors will also show up in the logs, as it was difficult to test this. n8n usually catches these errors and gives feedback to the user on the website.
+It's uncertain whether errors will also be logged, as testing this was challenging. Typically, n8n detects these errors and provides feedback to the user on the website.
 
-There is a JSON file present of my workflow, you can find this inside the resources folder. You can test this on the n8n website by importing the JSON file. Please change the ChatIDs before executing the workflow!
+There is a JSON file present of my workflow, you can find this inside the resources folder. You can test this on the n8n website by importing the JSON file. Please make sure to change the ChatIDs before executing the workflow!
 
 ![workflow](./resources/workflow.png)
+
+I attempted to change the node package name but encountered an error while trying to link the new version to n8n. After a few unsuccessful attempts, I decided to retain the original name.
+
+![screenshot](./resources/screenshot.png)
