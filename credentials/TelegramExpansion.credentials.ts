@@ -2,7 +2,7 @@ import { IAuthenticateGeneric, ICredentialTestRequest, ICredentialType, INodePro
 
 export class TelegramExpansion implements ICredentialType { //adapted from orignal Telegram node
 	name = 'TelegramApi';
-	displayName = 'Telegram API';
+	displayName = 'TelegramExpansion API';
 	properties: INodeProperties[] = [
 		{
 			displayName: 'Access Token',
