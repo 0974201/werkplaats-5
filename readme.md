@@ -119,7 +119,7 @@ Another way to obtain the Chat ID is by using the web version of telegram. In th
 
 ### Additional notes
 
-When using the `Create an invite link` or `Create a new invite link` actions, your chat needs to be an super chat and the bot needs to be admin and have privileges.
+When using the `Create an invite link` or `Export invite link` actions, your chat needs to be an super chat and the bot needs to be admin and have privileges.
 
 A simple way of doing this is by opening the menu of a group chat where your bot is also a member in. By clicking on edit and then `Administrators`, you can add your bot as new admin and give it additional privileges. It will need `Change group info` to create invite links.
 
@@ -153,7 +153,7 @@ You will need to repeat this step for additional nodes. A way of preventing this
 
 ![adding chat id to node](./resources/usage_step5_5.png)
 
-When using the `Get Group Members`, `Create Invite Link` or `Export Invite Link` actions, you will need to add a Telegram message node to it, in order for the bot to send a message in chat. The steps are similar for when you were adding the actions from the `TelegramExpansion` node, but this time you will need the actions from the native `Telegram` node. `You don't need to do this when using the `Roll dice` action.`
+When using the `Get Group Members`, `Create Invite Link` or `Export Invite Link` actions, you will need to add a Telegram message node to it, in order for the bot to send a message in chat. The steps are similar for when you were adding the actions from the `TelegramExpansion` node, but this time you will need the actions from the native `Telegram` node. `**You don't need to do this when using the _Roll dice_ action.**`
 
 ![linking telegram msg node](./resources/usage_step6.png)
 
