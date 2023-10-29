@@ -1,0 +1,230 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "22c70db1-e756-4a91-855c-f83311aaa8d5",
+      "name": "When clicking \"Execute Workflow\"",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        640,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "-1002079843100",
+        "text": "=There are {{ $json.result }} members in this chatroom.",
+        "additionalFields": {}
+      },
+      "id": "a0c937d0-7720-4504-9583-8e3bd6f2c141",
+      "name": "Telegram",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [
+        1020,
+        320
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "nL7UKSCRL1TCh7ZD",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "-1002037860106",
+        "text": "=New invite link: {{ $json.result }} ",
+        "additionalFields": {}
+      },
+      "id": "f64fb147-3aca-49a6-8ab4-9621035aa7e1",
+      "name": "Telegram1",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [
+        1020,
+        680
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "nL7UKSCRL1TCh7ZD",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "-1002037860106",
+        "text": "=New invite link: {{ $json.result }} ",
+        "additionalFields": {}
+      },
+      "id": "50f4379b-93df-4492-ae8f-1bafd5b572ff",
+      "name": "Telegram2",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [
+        1020,
+        860
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "nL7UKSCRL1TCh7ZD",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "-1002079843100"
+      },
+      "id": "9ce2229e-026e-4610-bc68-997e62b6b2a7",
+      "name": "TelegramExpansion",
+      "type": "n8n-nodes-telegramcount.TelegramExpansion",
+      "typeVersion": 1,
+      "position": [
+        840,
+        320
+      ],
+      "credentials": {
+        "TelegramApi": {
+          "id": "UaXvVdPIKlYW1ZZ0",
+          "name": "Telegram account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "dice",
+        "chatId": "-1002079843100"
+      },
+      "id": "98196852-c1d0-46f2-a25c-b9b07b95c2f8",
+      "name": "TelegramExpansion1",
+      "type": "n8n-nodes-telegramcount.TelegramExpansion",
+      "typeVersion": 1,
+      "position": [
+        840,
+        500
+      ],
+      "credentials": {
+        "TelegramApi": {
+          "id": "UaXvVdPIKlYW1ZZ0",
+          "name": "Telegram account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "createLink",
+        "chatId": "-1002037860106"
+      },
+      "id": "4f13d141-e0c3-4f99-8d70-267cb65c5629",
+      "name": "TelegramExpansion2",
+      "type": "n8n-nodes-telegramcount.TelegramExpansion",
+      "typeVersion": 1,
+      "position": [
+        840,
+        680
+      ],
+      "credentials": {
+        "TelegramApi": {
+          "id": "UaXvVdPIKlYW1ZZ0",
+          "name": "Telegram account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "exportLink",
+        "chatId": "-1002037860106"
+      },
+      "id": "f2678fab-183d-485b-9bcb-1b6fc7dc2e0a",
+      "name": "TelegramExpansion3",
+      "type": "n8n-nodes-telegramcount.TelegramExpansion",
+      "typeVersion": 1,
+      "position": [
+        840,
+        860
+      ],
+      "credentials": {
+        "TelegramApi": {
+          "id": "UaXvVdPIKlYW1ZZ0",
+          "name": "Telegram account 2"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking \"Execute Workflow\"": {
+      "main": [
+        [
+          {
+            "node": "TelegramExpansion",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "TelegramExpansion1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "TelegramExpansion2",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "TelegramExpansion3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "TelegramExpansion": {
+      "main": [
+        [
+          {
+            "node": "Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "TelegramExpansion2": {
+      "main": [
+        [
+          {
+            "node": "Telegram1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "TelegramExpansion3": {
+      "main": [
+        [
+          {
+            "node": "Telegram2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "0b7d4d9f-3f23-44fe-a77b-cfc673b2496e",
+  "id": "3GHHa10p4SdNbtRD",
+  "meta": {
+    "instanceId": "8e443407cf6e59c2d47966cfbd86d64063ad9ca1fcf0e1b5cf4a767d35e3b2c4"
+  },
+  "tags": []
+}
