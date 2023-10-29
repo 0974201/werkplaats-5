@@ -14,24 +14,24 @@ Currently, you can use these API calls with this node:
 2. [Installing this node](#installing-this-node)
 3. [Set-up within n8n](#set-up-within-n8n)
   
-   [Bot Token](#bot-token)
+   3.1 [Bot Token](#bot-token)
 
-   [Adding the Telegram Bot Token to n8n](#adding-the-telegram-bot-token-to-n8n)
+   3.2 [Adding the Telegram Bot Token to n8n](#adding-the-telegram-bot-token-to-n8n)
 
-   [Getting the Chat ID](#getting-the-chat-id)
+   3.3 [Getting the Chat ID](#getting-the-chat-id)
 
-   [Additional notes](#additional-notes)
+   3.4 [Additional notes](#additional-notes)
 
 
 4. [Usage](#usage)
 
-    [Troubleshooting](#troubleshooting)
+    4.1 [Troubleshooting](#troubleshooting)
 
 5. [Dev stuff](#dev-stuff)
 
-    [Logging](#logging)
+    5.1 [Logging](#logging)
 
-    [Testing](#testing)
+    5.2 [Testing](#testing)
 
 6. [Notes](#notes)
 
@@ -181,7 +181,7 @@ There is some logging. You can read logs in the terminal from where you are runn
 
 ### Testing
 
-You can test the nodes by following the same steps as described in [usage](#usage). When clicking on the `Execute node` button, you will see an output screen on the right. The JSON output is displayed there, as well as in the logs. Errors will also show there.
+You can test the nodes by following the same steps as described in [usage](#usage). When clicking on the `Execute node` button, you will see an output screen on the right. The JSON output is displayed there, as well as in the logs. Errors will also show on the canvas.
 
 Additionally, you can test the output without having your bot sending a chat message on Telegram by removing the Trigger node and the `SendMessage` action node.
 
@@ -196,4 +196,4 @@ There is a lot of repetition within the code, this could be optimised in the fut
 
 It is possible for the user to use `{{json.result}}` as ChatID. The node will still execute but not successfully. There wasn't enough time to figure out why this happens, so this needs to be fixed in another update.
 
-It's unknown if errors will also show up in the logs, it was difficult to test this because n8n does some testing of its own.
+It's unknown if errors will also show up in the logs, as it was difficult to test this. n8n usually catches errors and gives feedback to the user.
